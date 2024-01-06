@@ -40,40 +40,44 @@ Inicie o servidor
 
 #### Retorna todos os tweets
 
-```http
-  GET http://localhost:3001/tweets
+```cURL
+  curl --location 'http://localhost:3001/tweets'
 ```
 
 #### Adicionar um tweet
 
-```http
-  POST http://localhost:3001/tweet
-  Content-Type: application/json
-  {
-    "description": "Texto da descrição aqui"
-  }
+```cURL
+  curl --location --request POST 'http://localhost:3001/tweet' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "description": "teste"
+    }'
 ```
+| Parâmetro | Tipo     | Descrição                    |
+| :-------- | :------- | :--------------------------- |
+| `description`| `string` | descrição para o tweet |
 
 #### Excluir um tweet
 
-```http
-  DELETE http://localhost:3001/tweet/${id}
+```cURL
+  curl --location --request DELETE 'http://localhost:3001/tweet/${id}'
 ```
 
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
+| Parâmetro | Tipo     | Descrição                    |
+| :-------- | :------- | :--------------------------- |
 | `id`      | `string` | **Obrigatório**. id do tweet |
 
 #### Editar um tweet
 
-```http
-  PUT http://localhost:3001/tweet/${id}
-  Content-Type: application/json
-  {
-    "description": "Texto da nova descrição aqui"
-  }
+```cURL
+  curl --location --request PUT 'http://localhost:3001/tweet/${id}' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "description":"Texto da nova descrição aqui"
+    }'
 ```
 
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
+| Parâmetro | Tipo     | Descrição                    |
+| :-------- | :------- | :--------------------------- |
 | `id`      | `string` | **Obrigatório**. id do tweet |
+| `description`| `string` | **Obrigatório**. texto para a nova descrição |
