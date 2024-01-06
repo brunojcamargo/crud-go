@@ -14,6 +14,7 @@ func AppRoutes(router *gin.Engine) *gin.RouterGroup {
 		v1.GET("/tweets", tweetController.FindAll)
 		v1.POST("/tweet", tweetController.Create)
 		v1.DELETE("/tweet/:id", tweetController.Delete)
+		v1.PUT("/tweet/:id", tweetController.Update)
 	}
 
 	return v1

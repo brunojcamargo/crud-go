@@ -63,3 +63,34 @@ func (t *tweetController) Delete(ctx *gin.Context) {
 		"error": true,
 	})
 }
+
+func (t *tweetController) Update(ctx *gin.Context) {
+	id := ctx.Param("id")
+
+	var requestBody struct {
+		Description string `json:"description"`
+	}
+
+	if err := ctx.BindJSON(&requestBody); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": true,
+		})
+		return
+	}
+
+	for idx, tweet := range t.tweets {
+		if tweet.ID == id {
+			t.tweets[idx].Description = requestBody.Description
+
+			ctx.JSON(http.StatusOK, gin.H{
+				"data":  t.tweets[idx],
+				"error": false,
+			})
+			return
+		}
+	}
+
+	ctx.JSON(http.StatusNotFound, gin.H{
+		"error": true,
+	})
+}
