@@ -26,3 +26,21 @@ func (t *tweetController) FindAll(ctx *gin.Context) {
 		"error": false,
 	})
 }
+
+func (t *tweetController) Create(ctx *gin.Context) {
+	tweet := entities.NewTweet()
+
+	if err := ctx.BindJSON(&tweet); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": true,
+		})
+		return
+	}
+
+	t.tweets = append(t.tweets, *tweet)
+
+	ctx.JSON(http.StatusCreated, gin.H{
+		"data":  tweet,
+		"error": false,
+	})
+}
